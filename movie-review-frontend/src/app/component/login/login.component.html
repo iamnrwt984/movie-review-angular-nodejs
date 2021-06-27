@@ -1,0 +1,24 @@
+<h1>Login</h1>
+<mat-dialog-content>
+    <form [formGroup] = "loginForm">
+        <mat-form-field appearance = "outline" >
+            <mat-label>email</mat-label>
+            <input matInput formControlName = "email"> 
+            <mat-hint>enter your email</mat-hint>
+            <mat-error *ngIf = "formerrors.email">{{formerrors.email}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance = "outline" >
+            <mat-label>password</mat-label>
+            <input matInput formControlName = "password"> 
+            <mat-hint>enter your password</mat-hint>
+            <mat-error *ngIf = "formerrors.password">{{formerrors.password}}</mat-error>
+        </mat-form-field>
+
+        <mat-dialog-actions>
+            <button [disabled] = "!loginForm.valid" (click) = "onlogin()">Login</button>
+            <button [disabled] = "!loginForm.valid">Signup</button>
+        </mat-dialog-actions>
+
+    </form>
+</mat-dialog-content>

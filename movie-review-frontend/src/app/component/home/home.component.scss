@@ -1,0 +1,36 @@
+.router-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+
+
+}
+
+.matformfield{
+    margin : 3rem;
+    min-width: 60%; 
+
+
+
+
+
+}
+
+.searchform{
+   min-width: 50%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+
+.searchicon{
+    color: #EE4C73 ;
+    
+    
+    
+}
+
+a:hover{
+    border : 1px solid ;
+}

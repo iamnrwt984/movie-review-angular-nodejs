@@ -1,0 +1,15 @@
+<div class = router-container>
+    
+    <form class = "searchform" [formGroup] = "searchForm">
+        <mat-form-field class = "matformfield" appearance = "outline">
+            <mat-label>search movie</mat-label>
+            <input matInput type = "text" formControlName = "searchfield">
+            <mat-hint>enter a movie name</mat-hint>
+            <mat-error *ngIf = "formerrors.searchfield">{{formerrors.searchfield}}</mat-error>
+            <a matSuffix mat-icon-button class = "fa fa-search searchicon" (click) = "onsearchclick()" [routerLink] = "['/searchresult']"><span></span></a>
+
+        </mat-form-field>
+            
+
+    </form>
+</div>

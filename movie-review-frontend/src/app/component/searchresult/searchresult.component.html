@@ -1,0 +1,8 @@
+<div>
+    <mat-grid-list cols = "4" >
+        <mat-grid-tile *ngFor = "let movie of result" class = "gridtile"  [routerLink] = "['/moviedetails' , movie.title , movie.image]">
+            <img src = "{{movie.image}}" class = "gridimage">
+            <mat-grid-tile-footer class = "gridlistfooter">{{movie.title}}</mat-grid-tile-footer>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>
