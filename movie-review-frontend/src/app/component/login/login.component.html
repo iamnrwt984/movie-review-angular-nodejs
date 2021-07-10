@@ -17,7 +17,7 @@
 
         <mat-dialog-actions>
             <button [disabled] = "!loginForm.valid" (click) = "onlogin()">Login</button>
-            <button [disabled] = "!loginForm.valid">Signup</button>
+            <button [disabled] = "!loginForm.valid" (click) = "onsignup ()">Signup</button>
         </mat-dialog-actions>
 
     </form>

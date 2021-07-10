@@ -16,7 +16,7 @@ router.post("/signup" , (req,res,next) => {
   .then((doc) => {
     console.log("founded user : " , doc)
     if (doc != null){
-      res.statusCode = 409;
+      res.statusCode = 303;
       res.setHeader("Content-Type" , "application/json")
       res.json({message : "User already exists ! "})
     }
@@ -39,19 +39,37 @@ router.post("/signup" , (req,res,next) => {
 router.post("/login" , (req , res , next) => {
   user.findOne({email : req.body.email})
   .then((doc) => {
-    bcrypt.compare(req.body.password , doc.password)
-    .then((confirmed) => { 
-      var token = jwt.sign({user : doc.email} , config.secret , {expiresIn : 3600})
-      res.json({message : "User logged in " , token : token});
-      res.statusCode = 200;
-      res.setHeader("Content-Type" , "application/json");
+    if(doc !== null ){
+      bcrypt.compare(req.body.password , doc.password)
+      .then((confirmed) => {
+        if (confirmed === true){
+        
+          var token = jwt.sign({user : doc.email} , config.secret , {expiresIn : 3600})
+          res.json({message : "User logged in " , token : token});
+          res.statusCode = 200;
+          res.setHeader("Content-Type" , "application/json");
+
+        }
+        else{
+          res.json({message : "password incorrect" });
+          res.statusCode = 403;
+          res.setHeader("Content-Type" , "application/json");
+        }
+     
     })
-    .catch()
-  })
-  .catch((err) => {
+    .catch((err) => next(err))
+  }
+  else{
     res.statusCode = 404;
     res.setHeader("Content-Type" , "aplication/json");
     res.json({message : "User not found"});
+
+  }
+
+    }
+    )  
+  .catch((err) => {
+    next(err)
   })
 })
 
@@ -74,6 +92,18 @@ router
     res.json({message : "User not found"});
   })
   
+})
+
+router
+.get("/favourite" , verify.verifyuser , (req,res,next) => {
+  user.findOne({email : req.user.email})
+  .populate("favourites")
+  .then((doc) => {
+    res.statusCode = 200
+    res.setHeader("Content-Type" , "aplication/json");
+    console.log("favourite11 : " , doc)
+  })
+  .catch((err) => next(err))
 })
 
 

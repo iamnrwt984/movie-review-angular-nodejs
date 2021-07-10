@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder , FormGroup , Validators} from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
+import { HttperrorhandlingService } from 'src/app/services/httperrorhandling.service';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +12,7 @@ export class LoginComponent implements OnInit {
 
   loginForm : FormGroup
 
-  loginFormData : any
+  loginFormData : string
 
   formerrors : {[index : string] : any} = {
     "email" : "" ,
@@ -48,10 +50,23 @@ export class LoginComponent implements OnInit {
   onlogin(){
     console.log("data : " , this.loginForm.value)
     this.loginFormData = this.loginForm.value
-    console.log("data : " , this.loginFormData.value)
+    console.log("data : " , this.loginFormData)
+    this.auth.login(this.loginFormData)
+    .subscribe((res) => {
+      console.log("res from server" , res)
+    } , (err) => {this.errhandling.handleError(err)})
+
   }
 
-  constructor( private fb : FormBuilder) { }
+  onsignup(){
+    this.loginFormData = this.loginForm.value
+    this.auth.signup(this.loginFormData)
+    .subscribe((res) => {
+      console.log("res from server" , res) 
+    } , (err) => {this.errhandling.handleError(err)})
+  }
+
+  constructor( private fb : FormBuilder , private auth : AuthService , private errhandling : HttperrorhandlingService) { }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group(
