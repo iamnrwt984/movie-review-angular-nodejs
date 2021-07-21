@@ -1,36 +1,20 @@
 <div class = "container">
-    <mat-card *ngIf = "movie_details" class = "mat-card-container">
-        <img src = "{{imagelink}}" >
-        <mat-card-header>
-            <mat-card-title>
-                <div *ngIf = "movie_details.genres" class = "genre">
-                    <p *ngFor = "let genre of movie_details.genres">{{genre.name}}</p>
-                </div>
-                <h1>
-                    {{movie_details.original_title}}
-                </h1>
-                
-            </mat-card-title>
-
-        </mat-card-header>  
-        
-        <mat-card-content>
-            <h3>Overview</h3>
-            
-            <h3>Rating : {{movie_details.vote_average}}</h3>
-            <p></p>
-        </mat-card-content>
-        <mat-card-footer>
-            footer
-        </mat-card-footer>
-        <mat-card-subtitle><p>{{movie_details.overview}}</p></mat-card-subtitle>
-    </mat-card>
+    <div>
+        <mat-card *ngIf = "movie_details" class = "mat-card-container">
+            <mat-card-header>
+                <mat-card-title><h1>{{movie_details.original_title}}</h1></mat-card-title>
+                <mat-card-subtitle>{{movie_details.overview}}</mat-card-subtitle>
+            </mat-card-header>
+            <img src = "{{imagelink}}">
+            <mat-card-content>
+                <h2><a class = "fa fa-thumbs-up like"></a>{{movie_details.vote_average}}</h2>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    
     
     <div class = "review-section">
-        <h1>
-            Reviews
-        </h1>
-
+        <div class = "review-heading">Reviews</div>
     </div>
 
 </div>

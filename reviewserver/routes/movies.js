@@ -42,6 +42,28 @@ router
 
 })
 
+router.post("/addcomment", verify.verifyuser , (req,res,next) => {
+  movies.findOneAndUpdate({original_title : req.body.original_title} , {
+    $push : {
+      Comments : {
+        rating : req.body.rating ,
+        comment : req.body.comment ,
+        author : req.user._id
+
+      }
+
+    }
+  } , {useFindAndModify : false})
+  .then((doc) => {
+      res.statusCode = 200;
+      res.setHeader("Content-Type","application/json");
+      res.json({"message" : "comment posted successfully" , "doc" : doc})
+
+  })
+  .catch((err) => {next(err)})
+
+})
+
 
 
 module.exports = router;

@@ -44,7 +44,7 @@ router.post("/login" , (req , res , next) => {
       .then((confirmed) => {
         if (confirmed === true){
         
-          var token = jwt.sign({user : doc.email} , config.secret , {expiresIn : 3600})
+          var token = jwt.sign({user : doc._id} , config.secret , {expiresIn : 3600})
           res.json({message : "User logged in " , token : token});
           res.statusCode = 200;
           res.setHeader("Content-Type" , "application/json");
@@ -76,27 +76,38 @@ router.post("/login" , (req , res , next) => {
 router
 .post("/addfavourite" ,verify.verifyuser, (req,res,next) => {
 
-  user.findOneAndUpdate({email : req.user.email} , { 
-    $push : {
-      favourites : req.body._id 
+  user.findOne({_id : req.user._id})
+  .then((doc) => {
+    console.log("for the purpose" , doc)
+    if(doc.favourites.includes(req.body._id)){
+      res.statusCode = 403;
+      res.setHeader("Content-Type" , "application/json");
+      res.json({message : "already exists"});
+    }
+    else{
+      user.findOneAndUpdate({_id : req.user._id} , {
+        $push : {
+          favourites : req.body._id
+        }
+      } , {useFindAndModify : false })
+      .then((doc) => {
+        res.statusCode = 200;
+        res.setHeader("Content-Type" , "application/json");
+        res.json({message : "successful"});
+      })
+      .catch((err) => { next(err)})
+      
     }
   })
-  .then((doc) => {
-    res.statusCode = 200;
-    res.setHeader("Content-Type" , "aplication/json");
-    res.json({message : "successful" , "doc : " : doc});
-  })
   .catch((err) => {
-    res.statusCode = 404;
-    res.setHeader("Content-Type" , "aplication/json");
-    res.json({message : "User not found"});
+    next(err)
   })
   
 })
 
 router
-.get("/favourite" , verify.verifyuser , (req,res,next) => {
-  user.findOne({email : req.user.email})
+.get("/userwithdata" , verify.verifyuser , (req,res,next) => {
+  user.findOne({_id : req.user._id})
   .populate("favourites")
   .then((doc) => {
     res.statusCode = 200
