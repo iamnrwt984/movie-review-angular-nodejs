@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttperrorhandlingService } from 'src/app/services/httperrorhandling.service';
 import { Subscription } from 'rxjs';
 import { HolddataService } from 'src/app/services/holddata.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-moviedetails',
@@ -11,6 +12,12 @@ import { HolddataService } from 'src/app/services/holddata.service';
   styleUrls: ['./moviedetails.component.scss']
 })
 export class MoviedetailsComponent implements OnInit {
+
+  review : any ;
+
+  rating : any ;
+
+  reviewform : FormGroup
 
   original_title : any ;
 
@@ -20,7 +27,43 @@ export class MoviedetailsComponent implements OnInit {
 
   subscription : Subscription;
 
-  constructor(private activatedroute : ActivatedRoute , private movieservice : MoviesService , private errorhandling : HttperrorhandlingService , private holddata : HolddataService) { }
+  formerrors : {[index : string] : any} = {
+    "review" : ""
+  }
+
+  formerrorsdefault : {[index : string] : any} = {
+    "review" : {
+      "required" : "review cant be empty !"
+
+    }
+  }
+
+  onvaluechanged(){
+    for (const field in this.formerrorsdefault){
+        this.formerrors[field] = ""
+        let formfield = this.reviewform.get(field)
+        if (formfield?.hasError){
+          for (const error in formfield.errors){
+            this.formerrors[field] = this.formerrorsdefault[field][error]
+          }
+        }
+    }
+
+  }
+
+  submitclicked(){
+    this.review = this.reviewform.get("review")?.value
+    console.log("review" , this.review , this.rating)
+  }
+
+  sliderchanged(event :any ){
+    this.rating = event.value
+
+  }
+
+  constructor(private activatedroute : ActivatedRoute , private movieservice : MoviesService ,
+     private errorhandling : HttperrorhandlingService , private holddata : HolddataService ,
+     private fb : FormBuilder) { }
 
   ngOnInit(): void {
 
@@ -40,6 +83,18 @@ export class MoviedetailsComponent implements OnInit {
     
 
     })
+
+    this.reviewform = this.fb.group(
+      {"review" : ["" , [Validators.required]]}
+        
+    )
+
+    this.reviewform.valueChanges
+    .subscribe(() => this.onvaluechanged())
+
+    
+
+
 
 
   }

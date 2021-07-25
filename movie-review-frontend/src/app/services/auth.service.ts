@@ -23,4 +23,25 @@ export class AuthService {
   signup(user : any){
     return this.http.post<loginresponse>("http://localhost:3000/users/signup" , {email : user.email , password : user.password})
   }
+
+  storejwt(token : any){
+    console.log("token hai" , token)
+    localStorage.setItem("token" , token)
+  }
+
+  deletejwt(){
+    localStorage.removeItem("token")
+  }
+
+  isjwtavailable(){
+    if(localStorage.getItem("token") != null){
+      console.log("jwt is not null")
+      return true
+
+    }
+
+    else {
+      return false
+    }
+  }
 }

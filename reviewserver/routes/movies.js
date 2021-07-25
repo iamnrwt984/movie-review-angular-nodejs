@@ -19,6 +19,7 @@ router
 .post("/search"  ,   (req,res,next) => {
   console.log("body :" ,   req.body.original_title)
   movies.findOne({"original_title" : req.body.original_title})
+  .populate("Comments.author")
   .then((doc) => {
     if(doc !== null){
       console.log("founded movies : " , doc);
@@ -43,6 +44,7 @@ router
 })
 
 router.post("/addcomment", verify.verifyuser , (req,res,next) => {
+  console.log("this is my reqest" , req)
   movies.findOneAndUpdate({original_title : req.body.original_title} , {
     $push : {
       Comments : {

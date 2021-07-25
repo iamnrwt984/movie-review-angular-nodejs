@@ -8,7 +8,7 @@ var user = require("./models/users")
 
 passport.use(new strategy({jwtFromRequest : extractjwt.fromAuthHeaderAsBearerToken() , secretOrKey : config.secret} , (payload , done) => {
     console.log("payload : " , payload)
-    user.findOne({email : payload.user})
+    user.findOne({_id : payload.user})
     .then((doc) => {
         console.log("user founded jwt")
         console.log("doc is not empty" , doc)

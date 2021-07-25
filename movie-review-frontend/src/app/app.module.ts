@@ -29,6 +29,8 @@ import { HeaderComponent } from './component/header/header.component';
 import { FooterComponent } from './component/footer/footer.component';
 import { MoviedetailsComponent } from './component/moviedetails/moviedetails.component';
 import { LoginComponent } from './component/login/login.component';
+import { LoginmessageComponent } from './component/loginmessage/loginmessage.component';
+import { LogoutmessageComponent } from './component/logoutmessage/logoutmessage.component';
 
 
 
@@ -41,7 +43,9 @@ import { LoginComponent } from './component/login/login.component';
     HeaderComponent,
     FooterComponent,
     MoviedetailsComponent,
-    LoginComponent
+    LoginComponent,
+    LoginmessageComponent,
+    LogoutmessageComponent
   ],
   imports: [
     BrowserModule,

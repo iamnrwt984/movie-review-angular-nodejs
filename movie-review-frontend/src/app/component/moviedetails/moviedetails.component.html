@@ -1,20 +1,69 @@
 <div class = "container">
-    <div>
-        <mat-card *ngIf = "movie_details" class = "mat-card-container">
-            <mat-card-header>
-                <mat-card-title><h1>{{movie_details.original_title}}</h1></mat-card-title>
-                <mat-card-subtitle>{{movie_details.overview}}</mat-card-subtitle>
-            </mat-card-header>
-            <img src = "{{imagelink}}">
-            <mat-card-content>
-                <h2><a class = "fa fa-thumbs-up like"></a>{{movie_details.vote_average}}</h2>
-            </mat-card-content>
-        </mat-card>
+    <div *ngIf = "movie_details" class = "details">
+        <div >
+            <h1 class = "title">{{movie_details.original_title}}</h1>
+            <h3 class = "release-date">{{movie_details.release_date}}</h3>
+        </div>
+        
+        <h2 class = "subtitle">{{movie_details.overview}}</h2>
+        <div class = "tempcontainer"><img class = "image" src = "{{imagelink}}"></div>
+        <i class = "rating">{{movie_details.vote_average}}<a class = "fa fa-thumbs-up  icon"></a></i>
+
+        <div>
+            <div class = "info">
+                <h3 class = "info-head">Budget</h3>
+                <h4 class = "info-foot">${{movie_details.budget}}</h4>
+            </div>
+            <div class = "info">
+                <h3 class = "info-head">Status</h3>
+                <h4 class = "info-foot">{{movie_details.status}}</h4>
+            </div>
+            <div class = "info">
+                <h3 class = "info-head"><a href="{{movie_details.homepage}}">Visit Homepage</a></h3>
+            </div>
+        </div>
+        
+        
+
     </div>
-    
-    
-    <div class = "review-section">
-        <div class = "review-heading">Reviews</div>
+    <div class = "details">
+        <h1 class = "title">Reviews</h1>
+        <div class = "card-container">
+            <div>
+                <mat-card *ngFor = "let comment of movie_details.Comments" class = "card">
+                    <img src = "../../../assets/images/dp.jpg" mat-card-avatar>
+                    <mat-card-header class = "card-header">
+                       
+                        <mat-card-title><h1 class = "subtitle">{{comment?.comment}}</h1></mat-card-title>
+                        <mat-card-subtitle style = " float : right">~{{comment.author?.email}}</mat-card-subtitle>
+                    </mat-card-header>
+                </mat-card>
+                
+            </div>
+
+            <div>
+                <form [formGroup] = "reviewform" (ngSubmit) = "submitclicked()">
+                    <mat-form-field appearance = "outline" style = "width: 100%">
+                        <mat-label>want to add a review ?</mat-label>
+                        <textarea formControlName = "review" matInput style = "min-height: 50px;"></textarea>
+                        <mat-error *ngIf = "formerrors.review">{{formerrors.review}}</mat-error>
+                    
+                    </mat-form-field>
+                    <mat-slider (change) = "sliderchanged($event)" thumbLabel step = "1" min = "1" max = "10" style = "width: 100%;"></mat-slider>
+                    <button [disabled] = "!reviewform.valid" type = "submit" mat-raised-button style = "float : right ">Submit</button>
+                    
+                    
+                    
+                    
+                </form>
+
+            </div>
+
+        </div>
+        
+        
+
+
     </div>
 
 </div>

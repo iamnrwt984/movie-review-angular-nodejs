@@ -11,6 +11,9 @@ export class HolddataService {
   searchquery  = new BehaviorSubject("");
   searchqueryobservable = this.searchquery.asObservable();
 
+  isloggedin = new BehaviorSubject(false);
+  isloggedinobservable = this.isloggedin.asObservable();
+
 
   image = new BehaviorSubject("");
   imageobservable = this.image.asObservable();
@@ -27,5 +30,15 @@ export class HolddataService {
     this.image.next(image);
 
   }
+
+  setlogin(){
+    this.isloggedin.next(true)
+  }
+
+  setlogout(){
+    this.isloggedin.next(false)
+  }
+
+  
 
 }

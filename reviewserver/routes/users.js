@@ -111,7 +111,7 @@ router
   .populate("favourites")
   .then((doc) => {
     res.statusCode = 200
-    res.setHeader("Content-Type" , "aplication/json");
+    res.setHeader("Content-Type" , "aplication/json");  
     console.log("favourite11 : " , doc)
   })
   .catch((err) => next(err))
