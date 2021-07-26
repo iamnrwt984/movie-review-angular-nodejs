@@ -28,8 +28,16 @@ var user = new Schema(
             type : [{
                 type : mongoose.Schema.Types.ObjectId,
                 ref : "movies"
+            }] ,
+        } ,
+        reviewed_movies : {
+            type : [{
+                type : mongoose.Schema.Types.ObjectId,
+                ref : "movies"
             }]
-        } 
+            
+        }
+       
     
         
         

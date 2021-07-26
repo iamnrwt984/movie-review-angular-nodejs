@@ -80,9 +80,9 @@ router
   .then((doc) => {
     console.log("for the purpose" , doc)
     if(doc.favourites.includes(req.body._id)){
-      res.statusCode = 403;
+      res.statusCode = 201;
       res.setHeader("Content-Type" , "application/json");
-      res.json({message : "already exists"});
+      res.json({message : "Movie already exists in favourites"});
     }
     else{
       user.findOneAndUpdate({_id : req.user._id} , {
@@ -93,7 +93,7 @@ router
       .then((doc) => {
         res.statusCode = 200;
         res.setHeader("Content-Type" , "application/json");
-        res.json({message : "successful"});
+        res.json({message : "Movie added to favourites"});
       })
       .catch((err) => { next(err)})
       
@@ -116,6 +116,8 @@ router
   })
   .catch((err) => next(err))
 })
+
+
 
 
 module.exports = router;

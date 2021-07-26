@@ -2,6 +2,8 @@
     display: flex;
     flex-direction: row;
     width: 100%;
+
+
 }
 
 .title{
@@ -40,6 +42,13 @@
     margin : 2rem;
     padding: 1rem;
     align-items: center;
+    height: 100vh;
+    justify-content: space-evenly ;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    
+
+
 }
 
 .tempcontainer{
@@ -73,7 +82,7 @@
 .info{
 
     display: flex;
-    justify-content: space-around;
+    justify-content: space-around
 
 }
 
@@ -105,13 +114,21 @@ a:hover{
 .card-container{
     display: flex;
     flex-direction: column;
-    margin : 5rem;
+    margin : 1rem;
     width: 100%;
-    justify-content:space-evenly;
     
 
+}
+
+.scrolling{
+    overflow: scroll;
+    overflow-x: hidden;
+    max-height: 50vh;
+    width: 100%;
+    border: 1px solid lightblue;
 
 }
+
 .card{
     margin:2rem
 }
@@ -119,5 +136,8 @@ a:hover{
 .card-header{
     display: flex;
     justify-content: flex-end;
+}
+.favourite{
+    margin-bottom: 1rem;
 }
 

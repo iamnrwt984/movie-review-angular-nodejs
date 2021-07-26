@@ -4,6 +4,7 @@ var router = express.Router();
 var cors = require("../cors")
 var http = require("http")
 var verify = require("../auth")
+var user = require("../models/users")
 
 var movies  = require("../models/movie")
 
@@ -57,9 +58,37 @@ router.post("/addcomment", verify.verifyuser , (req,res,next) => {
     }
   } , {useFindAndModify : false})
   .then((doc) => {
+    if (doc != null){
+
+      user.findOne({_id : req.user._id})
+      .then((doc) => {
+        console.log("doc1" , doc)
+        if(doc != null && doc.reviewed_movies.includes(req.body._id) == false){
+          user.findOneAndUpdate({_id :  doc._id} , {
+            $push : {
+              reviewed_movies : req.body._id
+            }
+          })
+          .then((res) => {console.log("reviewed movies added successfully")})
+          .catch(err => next(err))
+
+        }
+      
+      })
+      
+      
       res.statusCode = 200;
       res.setHeader("Content-Type","application/json");
       res.json({"message" : "comment posted successfully" , "doc" : doc})
+
+    }
+    else{
+      res.statusCode = 401;
+      res.setHeader("Content-Type","application/json");
+      res.json({"message" : "unsuccessful" , "doc" : doc})
+
+    }
+     
 
   })
   .catch((err) => {next(err)})

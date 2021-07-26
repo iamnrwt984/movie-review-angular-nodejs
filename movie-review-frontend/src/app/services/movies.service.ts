@@ -10,6 +10,15 @@ interface responsefrommyapi {
   founded : any
 }
 
+interface addcomment {
+  message : string
+  doc : any
+}
+
+interface addfavourite {
+  message : any
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -29,6 +38,14 @@ export class MoviesService {
 
     return this.http.post<responsefrommyapi>("http://localhost:3000/movies/search" , {"original_title" : original_title})
 
+  }
+
+  addcomment(_id : any, original_title : any, rating :any , comment : any){
+    return this.http.post<addcomment>("http://localhost:3000/movies/addcomment" , {_id : _id , original_title : original_title , rating : rating , comment : comment} )
+  }
+
+  addfavourite(movie_id : any){
+    return this.http.post<addfavourite>("http://localhost:3000/users/addfavourite" , {_id : movie_id})
   }
 
   

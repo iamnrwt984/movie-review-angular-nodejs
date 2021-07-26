@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations"
-import { HttpClientModule } from '@angular/common/http'; 
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'; 
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -31,6 +31,7 @@ import { MoviedetailsComponent } from './component/moviedetails/moviedetails.com
 import { LoginComponent } from './component/login/login.component';
 import { LoginmessageComponent } from './component/loginmessage/loginmessage.component';
 import { LogoutmessageComponent } from './component/logoutmessage/logoutmessage.component';
+import { AuthinterceptorService } from './services/authinterceptor.service';
 
 
 
@@ -75,7 +76,7 @@ import { LogoutmessageComponent } from './component/logoutmessage/logoutmessage.
     HttpClientModule
 
   ],
-  providers: [],
+  providers: [{provide : HTTP_INTERCEPTORS , useClass : AuthinterceptorService , multi : true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -21,6 +21,9 @@
             <div class = "info">
                 <h3 class = "info-head"><a href="{{movie_details.homepage}}">Visit Homepage</a></h3>
             </div>
+            <div class = "info" >
+                <button (click) = "addtofavouriteclick()" mat-raised-button class = "favourite" >Add to favourite</button>
+            </div>
         </div>
         
         
@@ -28,38 +31,38 @@
     </div>
     <div class = "details">
         <h1 class = "title">Reviews</h1>
-        <div class = "card-container">
-            <div>
-                <mat-card *ngFor = "let comment of movie_details.Comments" class = "card">
-                    <img src = "../../../assets/images/dp.jpg" mat-card-avatar>
-                    <mat-card-header class = "card-header">
-                       
-                        <mat-card-title><h1 class = "subtitle">{{comment?.comment}}</h1></mat-card-title>
-                        <mat-card-subtitle style = " float : right">~{{comment.author?.email}}</mat-card-subtitle>
-                    </mat-card-header>
-                </mat-card>
+        
+        <div class = "scrolling">
+            <mat-card *ngFor = "let comment of movie_details?.Comments" class = "card">
+                <img src = "../../../assets/images/dp.jpg" mat-card-avatar>
+                <mat-card-header class = "card-header">
+                    
+                    <mat-card-title><h1 class = "subtitle">{{comment?.comment}}</h1></mat-card-title>
+                    <mat-card-subtitle style = " float : right">~{{comment.author?.email}}   {{comment.rating}} <i class = "fa fa-star" style = "color : yellow"></i></mat-card-subtitle>
+                </mat-card-header>
+            </mat-card>
+            
+        </div>
+
+        <div style = "width: 100%;">
+            <form [formGroup] = "reviewform" (ngSubmit) = "submitclicked()">
+                <mat-form-field appearance = "outline" style = "width: 100%">
+                    <mat-label>want to add a review ?</mat-label>
+                    <textarea formControlName = "review" matInput style = "min-height: 50px;"></textarea>
+                    <mat-error *ngIf = "formerrors.review">{{formerrors.review}}</mat-error>
                 
-            </div>
-
-            <div>
-                <form [formGroup] = "reviewform" (ngSubmit) = "submitclicked()">
-                    <mat-form-field appearance = "outline" style = "width: 100%">
-                        <mat-label>want to add a review ?</mat-label>
-                        <textarea formControlName = "review" matInput style = "min-height: 50px;"></textarea>
-                        <mat-error *ngIf = "formerrors.review">{{formerrors.review}}</mat-error>
-                    
-                    </mat-form-field>
-                    <mat-slider (change) = "sliderchanged($event)" thumbLabel step = "1" min = "1" max = "10" style = "width: 100%;"></mat-slider>
-                    <button [disabled] = "!reviewform.valid" type = "submit" mat-raised-button style = "float : right ">Submit</button>
-                    
-                    
-                    
-                    
-                </form>
-
-            </div>
+                </mat-form-field>
+                <mat-slider (change) = "sliderchanged($event)" thumbLabel step = "1" min = "1" max = "10" style = "width: 100%;"></mat-slider>
+                <button [disabled] = "!reviewform.valid" type = "submit" mat-raised-button style = "float : right ">Submit</button>
+                
+                
+                
+                
+            </form>
 
         </div>
+
+        
         
         
 

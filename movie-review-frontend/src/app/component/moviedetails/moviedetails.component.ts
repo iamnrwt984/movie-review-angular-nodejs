@@ -5,6 +5,9 @@ import { HttperrorhandlingService } from 'src/app/services/httperrorhandling.ser
 import { Subscription } from 'rxjs';
 import { HolddataService } from 'src/app/services/holddata.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { LoginComponent } from '../login/login.component';
+import { LoginmessageComponent } from '../loginmessage/loginmessage.component';
 
 @Component({
   selector: 'app-moviedetails',
@@ -53,7 +56,35 @@ export class MoviedetailsComponent implements OnInit {
 
   submitclicked(){
     this.review = this.reviewform.get("review")?.value
-    console.log("review" , this.review , this.rating)
+    console.log("review" , this.review , this.rating , this.original_title)
+    if(localStorage.getItem("token") != null){
+      this.movieservice.addcomment(this.movie_details._id , this.original_title ,  this.rating , this.review)
+      .subscribe((res) => {
+        console.log(res.message , res.doc )
+        location.reload()
+      })
+
+    }
+    else{
+
+      this.dialog.open(LoginComponent , {width : "30%" , height : "auto"  })
+
+    }
+
+  }
+
+  addtofavouriteclick(){
+    if(localStorage.getItem("token") != null){
+      this.movieservice.addfavourite(this.movie_details._id)
+      .subscribe((res) => {
+        this.dialog.open(LoginmessageComponent , {data : {messagefromserver : res.message}})
+
+      })
+    }
+    else{
+      this.dialog.open(LoginComponent , {width : "30%" , height : "auto"  })
+
+    }
   }
 
   sliderchanged(event :any ){
@@ -63,9 +94,11 @@ export class MoviedetailsComponent implements OnInit {
 
   constructor(private activatedroute : ActivatedRoute , private movieservice : MoviesService ,
      private errorhandling : HttperrorhandlingService , private holddata : HolddataService ,
-     private fb : FormBuilder) { }
+     private fb : FormBuilder , public dialog : MatDialog) { }
 
   ngOnInit(): void {
+
+    
 
     this.activatedroute.paramMap.subscribe(params => {
       console.log("params : " , params)
