@@ -1,0 +1,7 @@
+<div class = "container">
+    <mat-card *ngFor = "let movie of required_data" class = "mat-card" [routerLink] = "['/moviedetails' , movie.title , image]">
+        <mat-card-title><h1>{{movie.original_title}}</h1></mat-card-title>
+        <mat-card-subtitle><h2>{{movie.overview}}</h2></mat-card-subtitle>
+    </mat-card>
+    
+</div>

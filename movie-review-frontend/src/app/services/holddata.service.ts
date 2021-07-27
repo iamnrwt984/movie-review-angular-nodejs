@@ -18,6 +18,9 @@ export class HolddataService {
   image = new BehaviorSubject("");
   imageobservable = this.image.asObservable();
 
+  requireddata = new BehaviorSubject({})
+  requireddataobservable = this.requireddata.asObservable()
+
   setmethod(moviename : any){
     console.log("set method called with " , moviename);
     this.searchquery.next(moviename)
@@ -37,6 +40,11 @@ export class HolddataService {
 
   setlogout(){
     this.isloggedin.next(false)
+  }
+
+  setrequireddata(data : any){
+    this.requireddata.next(data)
+
   }
 
   

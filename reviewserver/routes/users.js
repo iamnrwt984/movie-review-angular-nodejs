@@ -109,10 +109,11 @@ router
 .get("/userwithdata" , verify.verifyuser , (req,res,next) => {
   user.findOne({_id : req.user._id})
   .populate("favourites")
+  .populate("reviewed_movies")
   .then((doc) => {
     res.statusCode = 200
     res.setHeader("Content-Type" , "aplication/json");  
-    console.log("favourite11 : " , doc)
+    res.json({fav : doc.favourites , reviewed : doc.reviewed_movies})
   })
   .catch((err) => next(err))
 })

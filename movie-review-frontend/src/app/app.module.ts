@@ -32,6 +32,7 @@ import { LoginComponent } from './component/login/login.component';
 import { LoginmessageComponent } from './component/loginmessage/loginmessage.component';
 import { LogoutmessageComponent } from './component/logoutmessage/logoutmessage.component';
 import { AuthinterceptorService } from './services/authinterceptor.service';
+import { FavandreviewedComponent } from './component/favandreviewed/favandreviewed.component';
 
 
 
@@ -46,7 +47,9 @@ import { AuthinterceptorService } from './services/authinterceptor.service';
     MoviedetailsComponent,
     LoginComponent,
     LoginmessageComponent,
-    LogoutmessageComponent
+    LogoutmessageComponent,
+    FavandreviewedComponent,
+  
   ],
   imports: [
     BrowserModule,

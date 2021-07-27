@@ -2,8 +2,8 @@
     <p class = "title">MOVIE REVIEW</p>
     <ul class = "nav-bar-link-container">
       <li class = "nav-bar-link"><a [routerLink] = "['/home']">HOME</a></li>
-      <li class = "nav-bar-link"><a href = "">FAVOURITE</a></li>
-      <li class = "nav-bar-link"><a>REVIEWED</a></li>
+      <li class = "nav-bar-link"><a [routerLink] = "['/favandreviewed' , 'fav']">FAVOURITE</a></li>
+      <li class = "nav-bar-link"><a [routerLink] = "['/favandreviewed' , 'reviewed']">REVIEWED</a></li>
       <li class = "nav-bar-link"><a (click) = "onloginclick()" *ngIf = "loginflag == false">LOGIN</a></li>
       <li class="nav-bar-link"><a (click) = "onlogoutclick()" *ngIf = "loginflag == true">LOGOUT</a></li>
     </ul>
