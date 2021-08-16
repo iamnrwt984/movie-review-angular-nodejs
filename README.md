@@ -28,3 +28,11 @@ Install all the required modules to run the app
 
 It will run node app.js and connect your server to the database
 
+## Preview
+
+[![project1.png](https://i.postimg.cc/sgkcc58L/project1.png)](https://postimg.cc/5XmL9Qf5)
+
+[![project2.png](https://i.postimg.cc/y6GDrB6f/project2.png)](https://postimg.cc/mhQZtvHM)
+
+[![project3.png](https://i.postimg.cc/43RL6rhy/project3.png)](https://postimg.cc/tsDNyvkG)
+
